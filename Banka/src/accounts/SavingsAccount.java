@@ -1,25 +1,28 @@
 package accounts;
-import people.AccountOwner;
 
-public class SavingsAccount extends BankAccount {
+import people.Owner;
 
-    public SavingsAccount(AccountOwner accountOwner, String accountNumber) {
-        super(accountOwner, accountNumber);
+public class SavingAccount extends BankAccount implements InterestPoint {
+
+    private static final float INTEREST = 0.5f;
+    private static final float BONUS_FEE = 0.5f;
+
+    public SavingAccount(String uuid, String accountNumber, Owner owner) {
+        super(uuid, accountNumber, owner);
     }
 
-    public SavingsAccount(AccountOwner accountOwner, String accountNumber, double balance) {
-        super(accountOwner, accountNumber, balance);
+    public SavingAccount(Owner owner) {
+        super(owner);
     }
 
+    public SavingAccount(Owner owner, double balance) {
+        super(owner, balance);
+    }
 
     @Override
-    public void add(double amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
-        }
+    public void calculateInterest() {
+        double interest = this.balance * INTEREST;
 
-        double newBalance = (this.balance + amount) * 1.005;
-        this.balance = newBalance;
+        this.setBalance(this.getBalance() + interest);
     }
-
 }

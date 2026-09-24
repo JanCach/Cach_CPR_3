@@ -1,21 +1,19 @@
 package accounts;
-import people.AccountOwner;
+
+import people.Owner;
 
 public class BusinessAccount extends BankAccount {
 
-    public BusinessAccount(AccountOwner accountOwner, String accountNumber) {
-        super(accountOwner, accountNumber);
+    public BusinessAccount(String uuid, String accountNumber, Owner owner) {
+        super(uuid, accountNumber, owner);
     }
 
-    public BusinessAccount(AccountOwner accountOwner, String accountNumber, double balance) {
-        super(accountOwner, accountNumber, balance);
+    public BusinessAccount(Owner owner) {
+        super(owner);
     }
 
-
-    @Override
-    public void sub(double amount) {
-        double newAmount = amount + (amount * 0.01);
-        super.sub(newAmount);
+    public BusinessAccount(Owner owner, double balance) {
+        super(owner, balance);
     }
 
 }

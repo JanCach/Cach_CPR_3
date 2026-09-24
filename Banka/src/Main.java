@@ -1,7 +1,10 @@
 import accounts.BankAccount;
 import accounts.CurrentAccount;
+import accounts.InterestPoint;
 import accounts.StudentAccount;
-import people.AccountOwner;
+import creditCards.CreditCard;
+import people.Owner;
+import transfers.TransferService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,36 +32,47 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AccountOwner owner = new AccountOwner("Tomas", "Pesek");
+        TransferService transferService = new TransferService();
+
+        Owner owner = new Owner("Tomas", "Pesek");
 
         List<BankAccount> accounts = new ArrayList<>();
 
-        BankAccount bankAccount = new CurrentAccount(owner, "100");
+        BankAccount bankAccount = new CurrentAccount(owner, 1000);
         accounts.add(bankAccount);
 
-        BankAccount studentAccount = new StudentAccount(owner, "200", "Gymnazium Pardubice");
+        BankAccount studentAccount = new StudentAccount(owner, 100);
         accounts.add(studentAccount);
+
+        for (BankAccount account : accounts) {
+            if (account instanceof InterestPoint) {
+                ((InterestPoint)account).calculateInterest();
+            }
+        }
 
 
         for (BankAccount account : accounts) {
 
             if (account instanceof StudentAccount) {
-
                 StudentAccount overrideAccount = (StudentAccount) account;
-                System.out.println("school: " + overrideAccount.getSchoolName());
+                System.out.println("school: " + overrideAccount.getSchool());
             }
         }
 
+        transferService.withdraw(bankAccount, 500);
+        transferService.addToBalance(bankAccount,300);
+        transferService.addToBalance(bankAccount,100);
+        System.out.println("balance: " + bankAccount.getBalance());
 
 
+        CreditCard creditCard = new CreditCard(owner, 500);
+        transferService.addToBalance(creditCard,1000);
+        transferService.withdraw(creditCard,100);
 
-        bankAccount.add(500);
-        bankAccount.add(300);
-        bankAccount.add(100);
 
-        bankAccount.sub(500);
-        bankAccount.sub(500);
-        bankAccount.sub(500);
+        // transferService.withdraw(bankAccount, 500);
+        // transferService.withdraw(bankAccount,500);
+        // transferService.withdraw(bankAccount,500);
 
 
 

@@ -1,14 +1,14 @@
 package accounts;
 
-import people.AccountOwner;
+import people.Owner;
 
 public class CurrentAccount extends BankAccount {
 
-    public CurrentAccount(AccountOwner accountOwner, String accountNumber) {
-        super(accountOwner, accountNumber);
+    public CurrentAccount(Owner owner) {
+        super(owner);
     }
 
-    public CurrentAccount(AccountOwner accountOwner, String accountNumber, double balance) {
-        super(accountOwner, accountNumber, balance);
+    public CurrentAccount(Owner owner, double balance) {
+        super(owner, balance);
     }
 }

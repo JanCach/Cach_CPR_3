@@ -1,49 +1,42 @@
 package accounts;
 
-// 2010
+import notifiers.EmailNotifier;
+import notifiers.Notifier;
+import people.Owner;
+import transfers.Withdraw;
 
-import people.AccountOwner;
+// kod banky  2010
 
-import java.util.UUID;
-
-// 2102405518
-public abstract class BankAccount {
+public abstract class BankAccount implements Withdraw {
 
     private String uuid;
-    private AccountOwner accountOwner;
-    private String accountNumber;
+
+    private String accountNumber; // 2102405518
+
+    private Owner owner;
+
     protected double balance;
 
-    public BankAccount(AccountOwner accountOwner, String accountNumber) {
-        this.uuid = UUID.randomUUID().toString();
-        this.accountOwner = accountOwner;
-        this.accountNumber = accountNumber;
+    protected Notifier notifier = new EmailNotifier();
+
+    public BankAccount(String uuid, String accountNumber, Owner owner) {}
+
+    public BankAccount(Owner owner) {
+        this.owner = owner;
         this.balance = 0;
     }
 
-    public BankAccount(AccountOwner accountOwner, String accountNumber, double balance) {
-        this(accountOwner, accountNumber);
+    public BankAccount(Owner owner, double balance) {
+        this.owner = owner;
         this.balance = balance;
     }
 
-    public void add(double amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
-        }
-
-        this.balance += amount;
+    @Override
+    public void setNewBalance(double balance) {
+        this.balance = balance;
     }
 
-    public void sub(double amount) {
-        double newBalance = balance - amount;
-
-        if (newBalance < 0) {
-            throw new IllegalArgumentException("Cannot subtract negative amount");
-        }
-
-        this.balance -= amount;
-    }
-
+    @Override
     public double getBalance() {
         return this.balance;
     }
