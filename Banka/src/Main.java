@@ -33,10 +33,10 @@ public class Main {
 
         List<BankAccount> accounts = new ArrayList<>();
 
-        BankAccount bankAccount = new CurrentAccount(owner, 100);
+        BankAccount bankAccount = new CurrentAccount(owner, "100");
         accounts.add(bankAccount);
 
-        BankAccount studentAccount = new StudentAccount(owner, 100);
+        BankAccount studentAccount = new StudentAccount(owner, "200", "Gymnazium Pardubice");
         accounts.add(studentAccount);
 
 
@@ -45,7 +45,7 @@ public class Main {
             if (account instanceof StudentAccount) {
 
                 StudentAccount overrideAccount = (StudentAccount) account;
-                System.out.println("school: " + overrideAccount.getSchool());
+                System.out.println("school: " + overrideAccount.getSchoolName());
             }
         }
 

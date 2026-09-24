@@ -1,5 +1,5 @@
 package accounts;
-import person.AccountOwner;
+import people.AccountOwner;
 
 public class BusinessAccount extends BankAccount {
 

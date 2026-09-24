@@ -1,6 +1,6 @@
 package accounts;
 
-import person.AccountOwner;
+import people.AccountOwner;
 
 public class StudentAccount extends BankAccount{
 

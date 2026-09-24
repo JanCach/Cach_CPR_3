@@ -20,7 +20,7 @@ public class Calculator {
     public int add (int d, int c) {
 
         if (this.currency.equals("USD")) {
-            // ....
+
         }
 
         return d + c;

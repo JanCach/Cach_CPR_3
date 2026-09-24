@@ -2,7 +2,7 @@ package accounts;
 
 // 2010
 
-import person.AccountOwner;
+import people.AccountOwner;
 
 import java.util.UUID;
 

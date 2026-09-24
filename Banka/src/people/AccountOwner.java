@@ -8,9 +8,6 @@ public class AccountOwner {
 
     private String lastName;
 
-    // address, date of born, consents, ...
-
-
     public AccountOwner(String name, String lastName) {
         this.name = name;
         this.lastName = lastName;
