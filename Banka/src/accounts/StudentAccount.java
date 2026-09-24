@@ -1,38 +1,50 @@
 package accounts;
 
-import people.AccountOwner;
+import person.AccountOwner;
 
-public class StudentAccount extends BankAccount {
+public class StudentAccount extends BankAccount{
 
-    private String school;
-    private static final double doMinusu = 5000.0;
+    private String schoolName;
 
-    public StudentAccount(AccountOwner owner, String school) {
-        super(owner);
-        this.school = school;
+    public StudentAccount(
+            AccountOwner accountOwner,
+            String accountNumber,
+            double balance,
+            String schoolName
+    ) {
+        super(accountOwner, accountNumber, balance);
+        this.schoolName = schoolName;
     }
 
-    public StudentAccount(AccountOwner owner, double balance) {
-        super(owner, balance);
+    public StudentAccount(
+            AccountOwner accountOwner,
+            String accountNumber,
+            String schoolName
+    ) {
+        this(accountOwner, accountNumber, 0, schoolName);
     }
-    public String getSchool() {
-        return this.school;
+
+    @Override
+    public void add(double amount) {
+
+        double bonusAmount = amount * 0.05;
+
+        super.add(bonusAmount);
+        super.add(amount);
     }
 
     @Override
     public void sub(double amount) {
-        double newBalance = getBalance() - amount;
+        double newBalance = this.balance - amount;
 
-        if (newBalance < -doMinusu) {
-            throw new RuntimeException("Překročen limit. Zůstatek nemůže klesnout pod -5000");
+        if (newBalance < -5000) {
+            throw new IllegalArgumentException("Studenti mohou jit jen -5000 do minusu. Ty jsi chtel jit az na " + newBalance);
         }
 
-        if (newBalance >= 0) {
-            super.sub(amount);
-        } else {
+        this.balance -= amount;
+    }
 
-            System.out.println("Jste " + amount + "Kč pod nulou");
-            super.add(-amount);
-        }
+    public String getSchoolName() {
+        return schoolName;
     }
 }

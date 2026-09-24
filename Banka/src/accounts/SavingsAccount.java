@@ -1,26 +1,25 @@
 package accounts;
-
-import people.AccountOwner;
+import person.AccountOwner;
 
 public class SavingsAccount extends BankAccount {
 
-    private static final double INTEREST_RATE = 0.005; // 0,5 %
-
-    public SavingsAccount(AccountOwner owner) {
-        super(owner);
+    public SavingsAccount(AccountOwner accountOwner, String accountNumber) {
+        super(accountOwner, accountNumber);
     }
 
-    public SavingsAccount(AccountOwner owner, double balance) {
-        super(owner, balance);
+    public SavingsAccount(AccountOwner accountOwner, String accountNumber, double balance) {
+        super(accountOwner, accountNumber, balance);
     }
+
 
     @Override
     public void add(double amount) {
-        double interest = amount * INTEREST_RATE;
-        double totalAmount = amount + interest;
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount cannot be negative");
+        }
 
-        System.out.println("Přidané množství je " + amount + " (+ úrok " + interest + ")");
-
-        super.add(totalAmount);
+        double newBalance = (this.balance + amount) * 1.005;
+        this.balance = newBalance;
     }
+
 }
