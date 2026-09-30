@@ -1,9 +1,7 @@
-import accounts.BankAccount;
-import accounts.CurrentAccount;
-import accounts.InterestPoint;
-import accounts.StudentAccount;
+import accounts.*;
 import creditCards.CreditCard;
 import people.Owner;
+import transfers.AccountTransferService;
 import transfers.TransferService;
 
 import java.util.ArrayList;
@@ -68,6 +66,22 @@ public class Main {
         CreditCard creditCard = new CreditCard(owner, 500);
         transferService.addToBalance(creditCard,1000);
         transferService.withdraw(creditCard,100);
+
+
+        // --- ukol ---
+        BusinessAccount businessAccount = new BusinessAccount(owner, 100000);
+        AccountTransferService accountTransferService = new AccountTransferService();
+
+        // zustatek pred prevodem
+        System.out.println("Business balance: " + businessAccount.getBalance());
+        System.out.println("Student balance: " + studentAccount.getBalance());
+
+        accountTransferService.transfer(businessAccount, studentAccount, 10000);
+
+        // zustatek po prevodu
+        System.out.println("New business balance: " + businessAccount.getBalance());
+        System.out.println("New student balance: " + studentAccount.getBalance());
+
 
 
         // transferService.withdraw(bankAccount, 500);

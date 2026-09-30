@@ -26,9 +26,12 @@ public class TransferService {
     }
 
     public void addToBalance(Withdraw withdrawObject, double amount) {
-        double newBalance = this.calculateNewBalance(withdrawObject, amount);
+        // toto je podle me SPATNE - odecita to penize misto pricitani
+        // double newBalance = this.calculateNewBalance(withdrawObject, amount);
+        // withdrawObject.setNewBalance(newBalance);
 
-        withdrawObject.setNewBalance(newBalance);
+        // podle me SPRAVNE je toto
+        withdrawObject.setNewBalance(withdrawObject.getBalance() + amount);
     }
 
     private double calculateNewBalance(Withdraw withdrawObject, double amount) {
