@@ -1,9 +1,10 @@
 package accounts.serialization;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public interface BankAccountSerialize {
-    <T> void serialize(T object, OutputStream outputStream) throws Exception;
-    <T> T deserialize(InputStream inputStream, Class<T> clazz) throws Exception;
+public class BankAccountSerialize {
+
+    @JacksonXmlProperty(localName = "number")
+    public String bankAccountNumber;
+
 }
