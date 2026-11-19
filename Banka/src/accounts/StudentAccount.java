@@ -6,7 +6,7 @@ public class StudentAccount extends BankAccount
 {
     private String school;
 
-    public StudentAccount(Owner owner, String school) {
+    public StudentAccount(Owner owner,double balance, String school) {
         super(owner);
 
         this.school = school;

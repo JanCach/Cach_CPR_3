@@ -1,4 +1,5 @@
 import accounts.*;
+import accounts.factories.BankAccountFactory;
 import accounts.serialization.BankAccountSerialization;
 import accounts.serialization.BankAccountXmlJacksonSerializationService;
 import creditCards.CreditCard;
@@ -21,6 +22,7 @@ public class Main {
         List<BankAccount> accounts = new ArrayList<>();
 
         // Vytváření účtů pomocí TOVÁRNY (Factory Pattern)
+        LogAccountStart();
         TimeDate();
         LogAccountStart();
 
@@ -29,16 +31,20 @@ public class Main {
 
         TimeDate();
         LogAccountStop();
+        LogAccountStop();
 
+        LogAccountStart();
         TimeDate();
         LogAccountStart();
 
-        BankAccount studentAccount = BankAccountFactory.createAccount(AccountType.STUDENT, owner, 100, "VŠB-TUO");
+        BankAccount studentAccount = BankAccountFactory.createAccount(AccountType.STUDENT, owner, 100);
         accounts.add(studentAccount);
 
         TimeDate();
         LogAccountStop();
+        LogAccountStop();
 
+        LogAccountStart();
         TimeDate();
         LogAccountStart();
 
@@ -47,6 +53,8 @@ public class Main {
 
         TimeDate();
         LogAccountStop();
+        LogAccountStop();
+
 
         // Výpočet úroků pro účty implementující InterestPoint
         for (BankAccount account : accounts) {

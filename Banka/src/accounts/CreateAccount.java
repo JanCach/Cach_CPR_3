@@ -1,6 +1,43 @@
 package accounts;
-import java.time.LocalDateTime; // Import the LocalDateTime class
-import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+interface DateFormatterComponent {
+    String getDateString();
+}
+
+class BasicDate implements DateFormatterComponent {
+    @Override
+    public String getDateString() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+}
+
+abstract class DateDecorator implements DateFormatterComponent {
+    protected DateFormatterComponent wrappee;
+
+    public DateDecorator(DateFormatterComponent wrappee) {
+        this.wrappee = wrappee;
+    }
+
+    @Override
+    public String getDateString() {
+        return wrappee.getDateString();
+    }
+}
+
+class MillisecondsDecorator extends DateDecorator {
+    public MillisecondsDecorator(DateFormatterComponent wrappee) {
+        super(wrappee);
+    }
+
+    @Override
+    public String getDateString() {
+        String baseTime = wrappee.getDateString();
+        String millis = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SSS"));
+        return baseTime + " " + millis;
+    }
+}
 
 public class CreateAccount {
     public static void LogAccountStart() {
@@ -12,10 +49,7 @@ public class CreateAccount {
     }
 
     public static void TimeDate() {
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.SSS");
-
-        String formattedDate = myDateObj.format(myFormatObj);
-        System.out.print(formattedDate);
+        DateFormatterComponent dateService = new MillisecondsDecorator(new BasicDate());
+        System.out.print(dateService.getDateString());
     }
 }
