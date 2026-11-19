@@ -14,6 +14,10 @@ public class TransferService {
 
     public void withdraw(Withdraw withdrawObject, double amount) {
 
+        if (withdrawObject == null) {
+            throw new IllegalArgumentException("withdrawObject must not be null");
+        }
+
         this.notifier.notify("Sub amount is " + amount);
 
         double newBalance = this.calculateNewBalance(withdrawObject, amount);
