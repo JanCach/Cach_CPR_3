@@ -30,11 +30,6 @@ public class TransferService {
     }
 
     public void addToBalance(Withdraw withdrawObject, double amount) {
-        // toto je podle me SPATNE - odecita to penize misto pricitani
-        // double newBalance = this.calculateNewBalance(withdrawObject, amount);
-        // withdrawObject.setNewBalance(newBalance);
-
-        // podle me SPRAVNE je toto
         withdrawObject.setNewBalance(withdrawObject.getBalance() + amount);
     }
 

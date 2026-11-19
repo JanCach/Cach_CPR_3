@@ -15,8 +15,26 @@ public class BankAccountFactory {
     private Notifier notifier = new EmailNotifier();
     private AccountNumberGenerator accountNumberGenerator = new AccountNumberGenerator(BANK_CODE);
 
-    public static BankAccount createAccount(AccountType accountType, Owner owner, int i) {
-        return null;
+    public static BankAccount createAccount(AccountType accountType, Owner owner, double balance) {
+        return createAccount(accountType, owner, balance, "Default School");
+    }
+
+    public static BankAccount createAccount(AccountType accountType, Owner owner, double balance, String school) {
+        if (accountType == null) {
+            throw new IllegalArgumentException("accountType must not be null");
+        }
+        if (owner == null) {
+            throw new IllegalArgumentException("owner must not be null");
+        }
+
+        BankAccountFactory factory = new BankAccountFactory();
+
+        return switch (accountType) {
+            case CURRENT -> factory.createCurrentAccount(owner, balance);
+            case STUDENT -> factory.createStudentAccount(owner, balance, school);
+            case SAVINGS -> factory.createSavingAccount(owner, balance);
+            case BUSINESS -> factory.createBusinessAccount(owner, balance);
+        };
     }
 
     public BankAccount createCurrentAccount(Owner owner, double balance) {
