@@ -15,58 +15,39 @@ public class BankAccountFactory {
     private Notifier notifier = new EmailNotifier();
     private AccountNumberGenerator accountNumberGenerator = new AccountNumberGenerator(BANK_CODE);
 
-    public static BankAccount createAccount(AccountType accountType, Owner owner, double balance) {
-        return createAccount(accountType, owner, balance, "Default School");
-    }
 
-    public static BankAccount createAccount(AccountType accountType, Owner owner, double balance, String school) {
-        if (accountType == null) {
-            throw new IllegalArgumentException("accountType must not be null");
-        }
-        if (owner == null) {
-            throw new IllegalArgumentException("owner must not be null");
-        }
 
-        BankAccountFactory factory = new BankAccountFactory();
-
-        return switch (accountType) {
-            case CURRENT -> factory.createCurrentAccount(owner, balance);
-            case STUDENT -> factory.createStudentAccount(owner, balance, school);
-            case SAVINGS -> factory.createSavingAccount(owner, balance);
-            case BUSINESS -> factory.createBusinessAccount(owner, balance);
-        };
-    }
-
-    public BankAccount createCurrentAccount(Owner owner, double balance) {
+    public BankAccount createCurrentAccount(Owner owner, double balance, String currency) {
         CurrentAccount currentAccount = new CurrentAccount(owner, balance);
-        this.initBankAccount(currentAccount);
+        this.initBankAccount(currentAccount, currency);
 
         return currentAccount;
     }
 
-    public BankAccount createStudentAccount(Owner owner, double balance, String school) {
+    public BankAccount createStudentAccount(Owner owner, double balance, String currency, String school) {
         StudentAccount studentAccount = new StudentAccount(owner, balance, school);
-        this.initBankAccount(studentAccount);
+        this.initBankAccount(studentAccount, currency);
 
         return studentAccount;
     }
 
-    public BankAccount createSavingAccount(Owner owner, double balance) {
+    public BankAccount createSavingAccount(Owner owner, double balance, String currency) {
         SavingAccount savingAccount = new SavingAccount(owner, balance);
-        this.initBankAccount(savingAccount);
+        this.initBankAccount(savingAccount, currency);
 
         return savingAccount;
     }
 
-    public BankAccount createBusinessAccount(Owner owner, double balance) {
+    public BankAccount createBusinessAccount(Owner owner, double balance, String currency) {
         BusinessAccount businessAccount = new BusinessAccount(owner, balance);
-        this.initBankAccount(businessAccount);
+        this.initBankAccount(businessAccount, currency);
 
         return businessAccount;
     }
 
-    private void initBankAccount(BankAccount bankAccount) {
+    private void initBankAccount(BankAccount bankAccount, String currency) {
         bankAccount.setUuid(UUID.randomUUID().toString());
         bankAccount.setAccountNumber(this.accountNumberGenerator.generate());
+        bankAccount.setCurrency(currency);
     }
 }

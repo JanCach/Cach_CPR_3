@@ -2,7 +2,11 @@ import accounts.*;
 import accounts.factories.BankAccountFactory;
 import accounts.serialization.BankAccountSerialization;
 import accounts.serialization.BankAccountXmlJacksonSerializationService;
+import accounts.services.AccountService;
 import creditCards.CreditCard;
+import currencies.CurrencyConverter;
+import di.Container;
+import di.ContainerFactory;
 import people.Owner;
 import transfers.AccountTransferService;
 import transfers.TransferService;
@@ -16,6 +20,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        AccountService accountService = new AccountService();
+
         TransferService transferService = new TransferService();
         Owner owner = new Owner("Tomas", "Pesek");
 
@@ -26,7 +32,7 @@ public class Main {
         TimeDate();
         LogAccountStart();
 
-        BankAccount bankAccount = BankAccountFactory.createAccount(AccountType.CURRENT, owner, 1000);
+        BankAccount bankAccount = accountService.createCurrentAccount(owner, 1000, "CZK");
         accounts.add(bankAccount);
 
         TimeDate();
@@ -37,7 +43,7 @@ public class Main {
         TimeDate();
         LogAccountStart();
 
-        BankAccount studentAccount = BankAccountFactory.createAccount(AccountType.STUDENT, owner, 100);
+        BankAccount studentAccount = accountService.createStudentAccount(owner, 100,"CZK", "DELTA SŠIE");
         accounts.add(studentAccount);
 
         TimeDate();
@@ -48,7 +54,7 @@ public class Main {
         TimeDate();
         LogAccountStart();
 
-        BankAccount businessAccount = BankAccountFactory.createAccount(AccountType.BUSINESS, owner, 100000);
+        BankAccount businessAccount = accountService.createBusinessAccount(owner, 100000, "CZK");
         accounts.add(businessAccount);
 
         TimeDate();
@@ -73,13 +79,21 @@ public class Main {
         // Operace převodů
         transferService.withdraw(bankAccount, 500);
         transferService.addToBalance(bankAccount, 300);
-        System.out.println("Current Account Balance: " + bankAccount.getBalance());
+        System.out.println("Current Account Balance: " + bankAccount.getBalance() + " " + bankAccount.getCurrency());
+        System.out.println("To je " + CurrencyConverter.convert(bankAccount.getBalance(), bankAccount.getCurrency(), "EUR") + " EUR");
+        System.out.println("To je " + CurrencyConverter.convert(bankAccount.getBalance(), bankAccount.getCurrency(), "USD") + " USD");
 
         AccountTransferService accountTransferService = new AccountTransferService();
         accountTransferService.transfer(businessAccount, studentAccount, 10000);
 
-        System.out.println("New Business Balance: " + businessAccount.getBalance());
-        System.out.println("New Student Balance: " + studentAccount.getBalance());
+        System.out.println("New Business Balance: " + businessAccount.getBalance() + " " + businessAccount.getCurrency());
+        System.out.println("To je " + CurrencyConverter.convert(businessAccount.getBalance(), businessAccount.getCurrency(), "EUR") + " EUR");
+        System.out.println("To je " + CurrencyConverter.convert(businessAccount.getBalance(), businessAccount.getCurrency(), "USD") + " USD");
+
+        System.out.println("New Student Balance: " + studentAccount.getBalance() + " " + studentAccount.getCurrency());
+        System.out.println("To je " + CurrencyConverter.convert(studentAccount.getBalance(), studentAccount.getCurrency(), "EUR") + " EUR");
+        System.out.println("To je " + CurrencyConverter.convert(studentAccount.getBalance(), studentAccount.getCurrency(), "USD") + " USD");
+
 
         // --- SERIALIZACE POMOCÍ JACKSON XML ---
         System.out.println("\n--- SERIALIZACE (Jackson XML) ---");

@@ -15,36 +15,36 @@ public class AccountLoggingService implements IAccountService {
     }
 
     @Override
-    public BankAccount createCurrentAccount(Owner owner, double balance) {
+    public BankAccount createCurrentAccount(Owner owner, double balance, String currency) {
         this.logStart();
-        BankAccount account = this.service.createCurrentAccount(owner, balance);
+        BankAccount account = this.service.createCurrentAccount(owner, balance, currency);
         this.logEnd();
 
         return account;
     }
 
     @Override
-    public BankAccount createStudentAccount(Owner owner, double balance, String school) {
+    public BankAccount createStudentAccount(Owner owner, double balance, String currency, String school) {
         this.logStart();
-        BankAccount account = this.service.createStudentAccount(owner, balance, school);
+        BankAccount account = this.service.createStudentAccount(owner, balance, currency, school);
         this.logEnd();
 
         return account;
     }
 
     @Override
-    public BankAccount createSavingAccount(Owner owner, double balance) {
+    public BankAccount createSavingAccount(Owner owner, double balance, String currency) {
         this.logStart();
-        BankAccount account = this.service.createSavingAccount(owner, balance);
+        BankAccount account = this.service.createSavingAccount(owner, balance, currency);
         this.logEnd();
 
         return account;
     }
 
     @Override
-    public BankAccount createBusinessAccount(Owner owner, double balance) {
+    public BankAccount createBusinessAccount(Owner owner, double balance, String currency) {
         this.logStart();
-        BankAccount account = this.service.createBusinessAccount(owner, balance);
+        BankAccount account = this.service.createBusinessAccount(owner, balance, currency);
         this.logEnd();
 
         return account;

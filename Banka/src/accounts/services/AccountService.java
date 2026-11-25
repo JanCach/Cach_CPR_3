@@ -13,29 +13,29 @@ public class AccountService implements IAccountService {
 
     BankAccountFactory accountFactory = new BankAccountFactory();
 
-    public BankAccount createCurrentAccount(Owner owner, double balance) {
-        BankAccount bankAccount = accountFactory.createCurrentAccount(owner, balance);
+    public BankAccount createCurrentAccount(Owner owner, double balance, String currency) {
+        BankAccount bankAccount = accountFactory.createCurrentAccount(owner, balance, currency);
         accounts.add(bankAccount);
 
         return bankAccount;
     }
 
-    public BankAccount createStudentAccount(Owner owner, double balance, String school) {
-        BankAccount bankAccount = accountFactory.createStudentAccount(owner, balance, school);
+    public BankAccount createStudentAccount(Owner owner, double balance, String currency, String school) {
+        BankAccount bankAccount = accountFactory.createStudentAccount(owner, balance, currency, school);
         accounts.add(bankAccount);
 
         return bankAccount;
     }
 
-    public BankAccount createSavingAccount(Owner owner, double balance) {
-        BankAccount bankAccount = accountFactory.createSavingAccount(owner, balance);
+    public BankAccount createSavingAccount(Owner owner, double balance, String currency) {
+        BankAccount bankAccount = accountFactory.createSavingAccount(owner, balance, currency);
         accounts.add(bankAccount);
 
         return bankAccount;
     }
 
-    public BankAccount createBusinessAccount(Owner owner, double balance) {
-        BankAccount bankAccount = accountFactory.createBusinessAccount(owner, balance);
+    public BankAccount createBusinessAccount(Owner owner, double balance, String currency) {
+        BankAccount bankAccount = accountFactory.createBusinessAccount(owner, balance, currency);
         accounts.add(bankAccount);
 
         return bankAccount;

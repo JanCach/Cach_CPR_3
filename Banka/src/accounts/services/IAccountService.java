@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface IAccountService {
 
-    public BankAccount createCurrentAccount(Owner owner, double balance);
+    public BankAccount createCurrentAccount(Owner owner, double balance, String currency);
 
-    public BankAccount createStudentAccount(Owner owner, double balance, String school);
+    public BankAccount createStudentAccount(Owner owner, double balance, String currency, String school);
 
-    public BankAccount createSavingAccount(Owner owner, double balance);
+    public BankAccount createSavingAccount(Owner owner, double balance, String currency);
 
-    public BankAccount createBusinessAccount(Owner owner, double balance);
+    public BankAccount createBusinessAccount(Owner owner, double balance, String currency);
 
     public List<BankAccount> getAccounts();
 

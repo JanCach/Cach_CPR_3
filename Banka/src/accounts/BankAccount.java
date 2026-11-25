@@ -19,6 +19,9 @@ public abstract class BankAccount implements Withdraw {
 
     protected double balance;
 
+    private String currency = "CZK";
+
+
     // 1
     // 2
     // 3
@@ -35,6 +38,12 @@ public abstract class BankAccount implements Withdraw {
     public BankAccount(Owner owner, double balance) {
         this.owner = owner;
         this.balance = balance;
+    }
+
+    public BankAccount(Owner owner, double balance, String currency) {
+        this.owner = owner;
+        this.balance = balance;
+        this.currency = currency;
     }
 
     public BankAccount(String uuid, String accountNumber, Owner owner) {
@@ -59,7 +68,9 @@ public abstract class BankAccount implements Withdraw {
         this.accountNumber = accountNumber;
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
-    }
+    public String getAccountNumber() {  return accountNumber;  }
+
+    public String getCurrency() {  return currency;  }
+
+    public void setCurrency( String currency ) {  this.currency = currency;  }
 }
